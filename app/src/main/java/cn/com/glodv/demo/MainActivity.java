@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
                             @Override
                             public void loadSucceeded(LoginEntity loginEntity) {
                                 // 响应成功
-                                Toast.makeText(mContext, "登录成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(mContext, "登录成功:"+loginEntity.bank_no, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
