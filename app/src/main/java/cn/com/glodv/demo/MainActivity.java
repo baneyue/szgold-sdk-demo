@@ -8,13 +8,13 @@ import android.widget.Toast;
 
 import cn.com.goldv.netlib.app.GoldV;
 import cn.com.goldv.netlib.entity.client.rsp.LoginEntity;
-import cn.com.goldv.netlib.entity.client.rsp.SubAccountEntity;
 import cn.com.goldv.netlib.entity.trade.rsp.TodayFundsEntity;
+import cn.com.goldv.netlib.entity.trade.rsp.TradeDateEntity;
 import cn.com.goldv.netlib.exception.ServerException;
 import cn.com.goldv.netlib.function.ClientRequestManager;
 import cn.com.goldv.netlib.function.TradeRequestManager;
+import cn.com.goldv.netlib.function.observer.HttpObserver;
 import cn.com.goldv.netlib.function.observer.LoginObserver;
-import cn.com.goldv.netlib.function.observer.SubAccountObserver;
 
 public class MainActivity extends BaseActivity {
 
@@ -248,12 +248,18 @@ public class MainActivity extends BaseActivity {
                                 Log.d("cheegon", t.getMessage());//网络异常
                             }
                         }));*/
-                mCompositeDisposable.add(ClientRequestManager.getInstance().reqSubAccountInfo(new SubAccountObserver<SubAccountEntity>() {
+         /*       mCompositeDisposable.add(ClientRequestManager.getInstance().reqSubAccountInfo(new SubAccountObserver<SubAccountEntity>() {
                     @Override
                     public void loadSucceeded(SubAccountEntity subAccountEntity) {
                         Toast.makeText(mContext, "获取子账户信息成功", Toast.LENGTH_SHORT).show();
                     }
-                }));
+                }));*/
+                TradeRequestManager.getInstance().reqTradeDate(new HttpObserver<TradeDateEntity>() {
+                    @Override
+                    public void loadSucceeded(TradeDateEntity tradeDateEntity) {
+                        Toast.makeText(mContext, "查询交易日成功:"+tradeDateEntity.exch_date, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
